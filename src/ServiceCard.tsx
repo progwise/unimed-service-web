@@ -7,6 +7,7 @@ import {
   IconButton,
   List,
   ListItem,
+  Rating,
   Typography,
 } from "@mui/material";
 import { red } from "@mui/material/colors";
@@ -51,6 +52,7 @@ export const ServiceCard = () => {
             </a>
           </ListItem>
         </List>
+        <Rating />
       </CardContent>
     </Card>
   );
