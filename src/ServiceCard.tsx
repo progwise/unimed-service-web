@@ -4,22 +4,25 @@ import {
   Card,
   CardContent,
   CardHeader,
+  Chip,
   IconButton,
-  List,
-  ListItem,
+  Link,
   Rating,
+  Stack,
   Typography,
 } from "@mui/material";
-import { red } from "@mui/material/colors";
+import { blue, red } from "@mui/material/colors";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
+import InfoIcon from '@mui/icons-material/Info';
 
-export const ServiceCard = () => {
+export const ServiceCard = (params: { item: Record<string, string | string[]>}) => {
+  console.log(params.item)
   return (
     <Card sx={{ maxWidth: 345 }}>
       <CardHeader
         avatar={
-          <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-            RK
+          <Avatar sx={{ bgcolor: blue[500] }} aria-label="recipe">
+            { params.item['avatar'] ?? <InfoIcon /> }
           </Avatar>
         }
         action={
@@ -27,32 +30,26 @@ export const ServiceCard = () => {
             <MoreVertIcon />
           </IconButton>
         }
-        title={<Typography variant="h6">Reisekostenabrechnung</Typography>}
-        subheader="Max Mustermann, Tel. 0123/45678"
+        title={<Typography variant="h6">{params.item.name}</Typography>}
+        subheader={`${params.item.ansprechpartner}, ${params.item.telefonnummer}`}
       ></CardHeader>
       <CardContent>
         <Box>
-          <Typography>
-            Erstattung von Reisekosten für dienstliche Aufwendungen.
-          </Typography>
-          <Typography>
-            Antragstellung innerhalb von sechs Monaten nach Dienstreise, sonst
-            keine Vergütung.
-          </Typography>
+          <Typography variant="subtitle2">{params.item.summary}</Typography>
+          
         </Box>
-        <List>
-          <ListItem>
-            <a href="" target="_blank">
-              Antrag Reisekostenabrechnung
-            </a>
-          </ListItem>
-          <ListItem>
-            <a href="" target="_blank">
-              Merkblatt Reisekosten
-            </a>
-          </ListItem>
-        </List>
-        <Rating />
+        <Stack direction="row" spacing={1} flexWrap={'wrap'} gap={1}>
+          {Array.isArray(params.item.keywords) && params.item.keywords.map((wort, index) => <Chip key={index} label={wort} size='small' />)}
+        </Stack>
+        <Stack direction='row' paddingTop={2} justifyContent='flex-end'>
+          <Rating />
+        </Stack>
+        {params.item.linkZumService && (
+
+<Stack>
+<Link href={params.item.linkZumService?.toString() ?? ''}>Zum Service...</Link>
+</Stack>
+        )}
       </CardContent>
     </Card>
   );

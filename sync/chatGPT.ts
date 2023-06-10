@@ -1,35 +1,37 @@
-import "dotenv/config";
-
-import { documentToPlainTextString } from "@contentful/rich-text-plain-text-renderer";
 import { Configuration, OpenAIApi } from "openai";
-import contentful from "contentful";
-
-const ITEM_LIMIT = 1;
-
-const contentfulClient = contentful.createClient({
-  space: process.env.CONTENTFUL_SPACE_ID!,
-  accessToken: process.env.CONTENTFUL_ACCESS_TOKEN!,
-});
 
 const configuration = new Configuration({
-  apiKey: process.env.OPENAI_API_KEY!,
+  apiKey: process.env.OPENAI_API_KEY || '',
 });
-const openai = new OpenAIApi(configuration);
+const openai = new OpenAIApi(configuration)
 
-const entries = await contentfulClient.getEntries({
-  content_type: "service",
-  limit: ITEM_LIMIT,
-});
+export const getServiceSummary = async (content: string) => {
 
-entries.items.forEach(async (entry) => {
-  const shortDescription = documentToPlainTextString(
-    // @ts-expect-error wrong type
-    entry.fields.kurzbeschreibung
-  );
+  const response =   await openai.createChatCompletion({
+    model: "gpt-3.5-turbo",
+    messages: [
+      {
+        role: "system",
+        content:
+          "Gib mir eine Zusammenfassung in maximal 30 worten für folgende Dienstbeschreibung mit Nennung des Ansprechpartners mit Kontaktinformationen:",
+      },
+      {
+        role: "system",
+        content:
+          "Formatiere die Antwort.",
+      },
+      { role: "user", content },
+    ],
+  });
 
-  const name = entry.fields.name;
+  const responseAsString = response.data.choices.at(0)?.message?.content;
 
-  const response = await openai.createChatCompletion({
+  return responseAsString  
+}
+
+export const getKeywords = async (content: string) => {
+
+  const response =   await openai.createChatCompletion({
     model: "gpt-3.5-turbo",
     messages: [
       {
@@ -51,7 +53,7 @@ entries.items.forEach(async (entry) => {
         role: "system",
         content: "Antworte nur mit den Keywords, ohne ein Prefix.",
       },
-      { role: "user", content: name + ": " + shortDescription },
+      { role: "user", content },
     ],
   });
 
@@ -60,5 +62,5 @@ entries.items.forEach(async (entry) => {
     ?.split(",")
     .map((keyword) => keyword.trim());
 
-  console.log(name, keywords);
-});
+  return keywords
+}

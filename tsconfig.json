@@ -20,6 +20,6 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src", "indexBuilder"],
+  "include": ["src", "sync"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

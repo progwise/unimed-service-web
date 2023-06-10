@@ -1,20 +1,54 @@
-import { ServiceCard } from "./ServiceCard";
-import { Stack } from '@mui/material'
+import { ServiceCard } from './ServiceCard'
+import { Stack, TextField, Typography } from '@mui/material'
 import './App.css'
+import { useState } from 'react'
+import { useSearch } from './useSearch'
+import { PersonCard } from './PersonCard'
 
 function App() {
-  return (
-    <main>
-      <img src="logo_m_siegel.jpg" />
+  const [searchTerm, setSearchTerm] = useState('')
+  const {fetching: fetchingServices, result: foundServices} = useSearch('service', searchTerm)
+  const {fetching: fetchingPersons, result: foundPersons} = useSearch('person', searchTerm)
 
-      <h1>Unimed Greifswald Service Web</h1>
-      <Stack direction="row" flexWrap={"wrap"}>
-        {[0, 1, 2, 3, 4, 5].map((item) => (
-          <ServiceCard key={item} />
+  const handleSearchInputChange: React.ChangeEventHandler<HTMLInputElement> = (event) => {
+    const newTerm = event.target.value.trim()
+    setSearchTerm(newTerm)
+  }
+
+  return (
+    <Stack alignItems="center" justifyContent="center" direction="column" gap={2}>
+      <div>
+        <img src="logo_m_siegel.jpg" />
+      </div>
+      <div>
+        <Typography variant="h4">Hallo, ich bin George - Ihre Verwaltungs KI.</Typography>
+        <Typography></Typography>
+      </div>
+      <TextField
+        label="Was kann ich für Sie tun?"
+        sx={{ width: '50%' }}
+        onChange={handleSearchInputChange}
+      />
+      <Stack
+        direction="row"
+        flexWrap={'wrap'}
+        width={'75%'}
+        gap={2}
+        bgcolor={'#eeeeee'}
+        padding={2}
+        justifyContent="center"
+        border="solid 1px #cccccc"
+        borderRadius={'20px'}
+      >
+        {foundServices.map((item, index) => (
+          <ServiceCard key={index} item={item} />
+        ))}
+        {foundPersons.map((item, index) => (
+          <PersonCard key={index} item={item} />
         ))}
       </Stack>
-    </main>
-  );
+    </Stack>
+  )
 }
 
-export default App;
+export default App

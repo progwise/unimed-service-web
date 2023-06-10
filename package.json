@@ -8,8 +8,7 @@
     "build": "tsc && vite build",
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
-    "contentful": "ts-node --esm ./sync/generate-keywords.ts",
-    "sync": "dotenv -- ts-node --esm indexBuilder/sync.ts"
+    "sync": "dotenv -- ts-node --esm sync/sync.ts"
   },
   "dependencies": {
     "@babel/runtime": "^7.22.5",
