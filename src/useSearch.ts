@@ -4,12 +4,12 @@ import { Client } from 'typesense'
 const clientConfig = {
   nodes: [
     {
-      host: import.meta.env['FGE_TYPESENSE_API_HOST'] ?? 'localhost',
-      port: parseInt(import.meta.env['FGE_TYPESENSE_API_HOST'] ?? '8108'),
-      protocol: import.meta.env['FGE_TYPESENSE_API_PROTOCOL'] ?? 'http',
+      host: import.meta.env['VITE_FGE_TYPESENSE_API_HOST'] ?? 'localhost',
+      port: parseInt(import.meta.env['VITE_FGE_TYPESENSE_API_HOST'] ?? '8108'),
+      protocol: import.meta.env['VITE_FGE_TYPESENSE_API_PROTOCOL'] ?? 'http',
     },
   ],
-  apiKey: import.meta.env['FGE_TYPESENSE_API_KEY'] ?? 'xyz',
+  apiKey: import.meta.env['VITE_FGE_TYPESENSE_API_KEY'] ?? 'xyz',
 }
 const client = new Client(clientConfig)
 
