@@ -9,7 +9,7 @@ const clientConfig = {
       protocol: import.meta.env['FGE_TYPESENSE_API_PROTOCOL'] ?? 'http',
     },
   ],
-  apiKey: process.env['FGE_TYPESENSE_API_KEY'] ?? 'xyz',
+  apiKey: import.meta.env['FGE_TYPESENSE_API_KEY'] ?? 'xyz',
 }
 const client = new Client(clientConfig)
 
