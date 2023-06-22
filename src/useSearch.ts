@@ -1,15 +1,16 @@
 import { useEffect, useState } from 'react'
 import { Client } from 'typesense'
 
+console.log(process.env)
 const clientConfig = {
   nodes: [
     {
-      host: 'localhost',
-      port: 8108,
-      protocol: 'http',
+      host: process.env['FGE_TYPESENSE_API_HOST'] ?? 'localhost',
+      port: parseInt(process.env['FGE_TYPESENSE_API_HOST'] ?? '8108'),
+      protocol: process.env['FGE_TYPESENSE_API_PROTOCOL'] ?? 'http',
     },
   ],
-  apiKey: 'xyz',
+  apiKey: process.env['FGE_TYPESENSE_API_KEY'] ?? 'xyz',
 }
 const client = new Client(clientConfig)
 

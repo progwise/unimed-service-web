@@ -11,6 +11,8 @@ const client = new Client({
   apiKey: process.env.FGE_TYPESENSE_API_KEY ?? '',
 })
 
+console.log(process.env)
+
 export const ensureSchema = async (name: string, fields: Array<{ name: string; type: FieldType; facet: boolean}>) => {
   name = name.toLowerCase()
   fields = fields.map(field => ({...field, name: field.name.toLowerCase()}))
