@@ -5,12 +5,13 @@ const clientConfig = {
   nodes: [
     {
       host: import.meta.env['VITE_FGE_TYPESENSE_API_HOST'] ?? 'localhost',
-      port: parseInt(import.meta.env['VITE_FGE_TYPESENSE_API_HOST'] ?? '8108'),
+      port: parseInt(import.meta.env['VITE_FGE_TYPESENSE_API_PORT'] ?? '8108'),
       protocol: import.meta.env['VITE_FGE_TYPESENSE_API_PROTOCOL'] ?? 'http',
     },
   ],
   apiKey: import.meta.env['VITE_FGE_TYPESENSE_API_KEY'] ?? 'xyz',
 }
+console.log(clientConfig)
 const client = new Client(clientConfig)
 
 export interface UseSearchResult {
