@@ -25,8 +25,9 @@ const getSearchParams = (catalog: 'service' | 'person', term: string) => {
     query_by: 'name',
     sort_by: '_text_match:asc',
     include_fields: 'summary',
-    page: '1',
-    per_page: 4
+    page: 1,
+    per_page: 4,
+    preset: ''
   }
 
   if (catalog === 'service') {

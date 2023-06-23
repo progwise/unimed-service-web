@@ -1,14 +1,10 @@
 import {
   Avatar,
-  Box,
   Card,
   CardContent,
   CardHeader,
   Chip,
   IconButton,
-  List,
-  ListItem,
-  Rating,
   Stack,
   Typography,
 } from '@mui/material'

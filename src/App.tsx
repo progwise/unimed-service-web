@@ -7,8 +7,8 @@ import { PersonCard } from './PersonCard'
 
 function App() {
   const [searchTerm, setSearchTerm] = useState('')
-  const {fetching: fetchingServices, result: foundServices} = useSearch('service', searchTerm)
-  const {fetching: fetchingPersons, result: foundPersons} = useSearch('person', searchTerm)
+  const { result: foundServices} = useSearch('service', searchTerm)
+  const { result: foundPersons} = useSearch('person', searchTerm)
 
   const handleSearchInputChange: React.ChangeEventHandler<HTMLInputElement> = (event) => {
     const newTerm = event.target.value.trim()

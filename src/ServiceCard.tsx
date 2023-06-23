@@ -11,7 +11,7 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import { blue, red } from "@mui/material/colors";
+import { blue } from "@mui/material/colors";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import InfoIcon from '@mui/icons-material/Info';
 

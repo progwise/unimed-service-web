@@ -2,11 +2,22 @@ version: '3.4'
 services:
   typesense:
     image: typesense/typesense:0.24.0
-    restart: on-failure
+    restart: always
     ports:
       - "8108:8108"
     volumes:
       - ./typesense-data:/data
     command: '--data-dir /data --api-key=xyz --enable-cors'
+    network_mode: 'bridge'
+  web:
+    container_name: web
+    env_file:
+      - ./.env
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    restart: always
+    ports:
+      - 8080:8080
     network_mode: 'bridge'
     
