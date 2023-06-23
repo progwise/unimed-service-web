@@ -8,28 +8,29 @@ services:
     volumes:
       - ./typesense-data:/data
     command: '--data-dir /data --api-key=xyz --enable-cors'
-    networks:
-      - default
-  web:
-    container_name: web
-    env_file:
-      - ./.env
-    build:
-      context: .
-      dockerfile: ./Dockerfile
-    restart: always
-    ports:
-      - 8080:8080
-    networks:
-      - default
-    
-networks:
-  default:
-    driver: bridge
-    driver_opts:
-      com.docker.network.bridge.default_bridge: "true"
-      com.docker.network.bridge.enable_icc: "true"
-      com.docker.network.bridge.enable_ip_masquerade: "true"
-      com.docker.network.bridge.host_binding_ipv4: "0.0.0.0"
-      com.docker.network.bridge.name: "docker0"
-      com.docker.network.driver.mtu: "1500"
+    network_mode: bridge
+#      - default
+#  web:
+#    container_name: web
+#    env_file:
+#      - ./.env
+#    build:
+#      context: .
+#      dockerfile: ./Dockerfile
+#    restart: always
+#    ports:
+#      - 8080:8080
+#    networks:
+#      - default
+#    
+#networks:
+#  default:
+#    driver: bridge
+#    driver_opts:
+#      com.docker.network.bridge.default_bridge: "true"
+#      com.docker.network.bridge.enable_icc: "true"
+#      com.docker.network.bridge.enable_ip_masquerade: "true"
+#      com.docker.network.bridge.host_binding_ipv4: "0.0.0.0"
+#      com.docker.network.bridge.name: "docker0"
+#      com.docker.network.driver.mtu: "1500"
+#
